@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+<table class="table table-striped" id="table">
+    <thead>
+        <tr>
+            <th class="text-start">Symbol</th>
+            <th class="text-start">Name</th>
+            <th class="text-end">Shares</th>
+            <th class="text-end">Price</th>
+            <th class="text-end">TOTAL</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- TODO: Loop through the database entries to display them in this table -->
+        {% for row in finance %}
+            <tr>
+                <td class="text-start">{{ row["symbol"] }}</td>
+                <td class="text-start">{{ row["name"] }}</td>
+                <td class="text-end">{{ row["shares"] }}</td>
+                <td class="text-end">${{ row["price"] }}</td>
+                <td class="text-end">{{ "${:,.2f}".format(row["total"]) }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        {% for row in monies %}
+        <tr>
+            <td class="border-0 fw-bold text-end" colspan="4">Cash</td>
+            <td class="border-0 text-end">{{ row }}</td>
+        </tr>
+        {% endfor %}
+        {% for row in grand %}
+        <tr>
+            <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
+            <td class="border-0 text-end">{{ row }}</td>
+        </tr>
+        {% endfor %}
+    </tfoot>
+</table>
+{% endblock %}
